@@ -1,0 +1,45 @@
+# Scorecard for the example support agent. This is the kind of file a PM
+# owns directly: it names what "good" means for this agent, how much each
+# dimension matters, and the bar each one has to clear.
+
+name: Support Agent Scorecard
+pass_threshold: 0.75
+
+dimensions:
+  - name: task_success
+    scorer: task_success
+    weight: 0.35
+    threshold: 0.8
+    config:
+      mode: contains
+
+  - name: tool_correctness
+    scorer: tool_correctness
+    weight: 0.30
+    threshold: 0.8
+
+  - name: quality
+    scorer: llm_judge
+    weight: 0.20
+    threshold: 0.6
+    config:
+      rubric: >
+        Rate this customer support response from 0.0 to 1.0 on whether it is
+        helpful, accurate, and on-tone: warm but efficient, no jargon, and it
+        does not overpromise. A 1.0 response resolves the request or clearly
+        explains the next step. A 0.0 response is unhelpful, robotic, or
+        wrong.
+
+  - name: cost
+    scorer: cost
+    weight: 0.10
+    threshold: 0.9
+    config:
+      max_cost_usd: 0.005
+
+  - name: latency
+    scorer: latency
+    weight: 0.05
+    threshold: 0.9
+    config:
+      max_latency_ms: 500

@@ -1,0 +1,514 @@
+{
+  "suite": "Support Agent Eval Suite",
+  "generated_at": "2026-09-24T04:42:08.734321+00:00",
+  "scorecard": {
+    "name": "Support Agent Scorecard",
+    "pass_threshold": 0.75,
+    "dimensions": [
+      {
+        "name": "task_success",
+        "weight": 0.35,
+        "threshold": 0.8
+      },
+      {
+        "name": "tool_correctness",
+        "weight": 0.3,
+        "threshold": 0.8
+      },
+      {
+        "name": "quality",
+        "weight": 0.2,
+        "threshold": 0.6
+      },
+      {
+        "name": "cost",
+        "weight": 0.1,
+        "threshold": 0.9
+      },
+      {
+        "name": "latency",
+        "weight": 0.05,
+        "threshold": 0.9
+      }
+    ]
+  },
+  "summary": {
+    "total": 10,
+    "passed": 10,
+    "failed": 0,
+    "pass_rate": 1.0,
+    "avg_weighted_score": 0.973
+  },
+  "cases": [
+    {
+      "id": "password-reset-with-email",
+      "tags": [
+        "password",
+        "tier1"
+      ],
+      "input": "I forgot my password, my email is jane@example.com. How do I reset it?",
+      "output": "I've sent a password reset link to jane@example.com. It expires in 30 minutes.",
+      "tool_calls": [
+        {
+          "name": "send_password_reset_link",
+          "args": {
+            "email": "jane@example.com"
+          }
+        }
+      ],
+      "latency_ms": 0.0138,
+      "cost_usd": 0.0,
+      "weighted_score": 0.98,
+      "passed": true,
+      "dimensions": {
+        "task_success": {
+          "score": 1.0,
+          "passed": true,
+          "detail": "all expected terms present"
+        },
+        "tool_correctness": {
+          "score": 1.0,
+          "passed": true,
+          "detail": "all expected tool calls matched"
+        },
+        "quality": {
+          "score": 0.9,
+          "passed": true,
+          "detail": "length_score=1.0, relevance_score=0.8"
+        },
+        "cost": {
+          "score": 1.0,
+          "passed": true,
+          "detail": "cost $0.00000 against budget $0.00500"
+        },
+        "latency": {
+          "score": 1.0,
+          "passed": true,
+          "detail": "latency 0.0ms against budget 500.0ms"
+        }
+      }
+    },
+    {
+      "id": "password-reset-no-email",
+      "tags": [
+        "password"
+      ],
+      "input": "I'm locked out of my account and need to reset my password.",
+      "output": "I've sent a password reset link to the email on your account. It expires in 30 minutes.",
+      "tool_calls": [
+        {
+          "name": "send_password_reset_link",
+          "args": {
+            "email": null
+          }
+        }
+      ],
+      "latency_ms": 0.015,
+      "cost_usd": 0.0,
+      "weighted_score": 0.98,
+      "passed": true,
+      "dimensions": {
+        "task_success": {
+          "score": 1.0,
+          "passed": true,
+          "detail": "all expected terms present"
+        },
+        "tool_correctness": {
+          "score": 1.0,
+          "passed": true,
+          "detail": "all expected tool calls matched"
+        },
+        "quality": {
+          "score": 0.9,
+          "passed": true,
+          "detail": "length_score=1.0, relevance_score=0.8"
+        },
+        "cost": {
+          "score": 1.0,
+          "passed": true,
+          "detail": "cost $0.00000 against budget $0.00500"
+        },
+        "latency": {
+          "score": 1.0,
+          "passed": true,
+          "detail": "latency 0.0ms against budget 500.0ms"
+        }
+      }
+    },
+    {
+      "id": "login-trouble",
+      "tags": [
+        "password"
+      ],
+      "input": "I can't log in to my account, help!",
+      "output": "I've sent a password reset link to the email on your account. It expires in 30 minutes.",
+      "tool_calls": [
+        {
+          "name": "send_password_reset_link",
+          "args": {
+            "email": null
+          }
+        }
+      ],
+      "latency_ms": 0.0057,
+      "cost_usd": 0.0,
+      "weighted_score": 0.98,
+      "passed": true,
+      "dimensions": {
+        "task_success": {
+          "score": 1.0,
+          "passed": true,
+          "detail": "all expected terms present"
+        },
+        "tool_correctness": {
+          "score": 1.0,
+          "passed": true,
+          "detail": "all expected tool calls matched"
+        },
+        "quality": {
+          "score": 0.9,
+          "passed": true,
+          "detail": "length_score=1.0, relevance_score=0.8"
+        },
+        "cost": {
+          "score": 1.0,
+          "passed": true,
+          "detail": "cost $0.00000 against budget $0.00500"
+        },
+        "latency": {
+          "score": 1.0,
+          "passed": true,
+          "detail": "latency 0.0ms against budget 500.0ms"
+        }
+      }
+    },
+    {
+      "id": "order-status-with-id",
+      "tags": [
+        "order",
+        "tier1"
+      ],
+      "input": "Can you tell me the tracking status of order ABC-12345?",
+      "output": "Order ABC-12345 is in transit and should arrive within 3 to 5 business days.",
+      "tool_calls": [
+        {
+          "name": "lookup_order_status",
+          "args": {
+            "order_id": "ABC-12345"
+          }
+        }
+      ],
+      "latency_ms": 0.0119,
+      "cost_usd": 0.0,
+      "weighted_score": 0.97,
+      "passed": true,
+      "dimensions": {
+        "task_success": {
+          "score": 1.0,
+          "passed": true,
+          "detail": "all expected terms present"
+        },
+        "tool_correctness": {
+          "score": 1.0,
+          "passed": true,
+          "detail": "all expected tool calls matched"
+        },
+        "quality": {
+          "score": 0.85,
+          "passed": true,
+          "detail": "length_score=1.0, relevance_score=0.7"
+        },
+        "cost": {
+          "score": 1.0,
+          "passed": true,
+          "detail": "cost $0.00000 against budget $0.00500"
+        },
+        "latency": {
+          "score": 1.0,
+          "passed": true,
+          "detail": "latency 0.0ms against budget 500.0ms"
+        }
+      }
+    },
+    {
+      "id": "order-status-no-id",
+      "tags": [
+        "order"
+      ],
+      "input": "What's the status of my order?",
+      "output": "I can look that up, but I need an order number to check its status. Could you share the order number from your confirmation email?",
+      "tool_calls": [
+        {
+          "name": "lookup_order_status",
+          "args": {
+            "order_id": null
+          }
+        }
+      ],
+      "latency_ms": 0.006,
+      "cost_usd": 0.0,
+      "weighted_score": 0.97,
+      "passed": true,
+      "dimensions": {
+        "task_success": {
+          "score": 1.0,
+          "passed": true,
+          "detail": "all expected terms present"
+        },
+        "tool_correctness": {
+          "score": 1.0,
+          "passed": true,
+          "detail": "all expected tool calls matched"
+        },
+        "quality": {
+          "score": 0.85,
+          "passed": true,
+          "detail": "length_score=1.0, relevance_score=0.7"
+        },
+        "cost": {
+          "score": 1.0,
+          "passed": true,
+          "detail": "cost $0.00000 against budget $0.00500"
+        },
+        "latency": {
+          "score": 1.0,
+          "passed": true,
+          "detail": "latency 0.0ms against budget 500.0ms"
+        }
+      }
+    },
+    {
+      "id": "delivery-keyword-order",
+      "tags": [
+        "order",
+        "edge-case"
+      ],
+      "input": "My package delivery seems delayed, what's going on?",
+      "output": "I can look that up, but I need an order number to check its status. Could you share the order number from your confirmation email?",
+      "tool_calls": [
+        {
+          "name": "lookup_order_status",
+          "args": {
+            "order_id": null
+          }
+        }
+      ],
+      "latency_ms": 0.0057,
+      "cost_usd": 0.0,
+      "weighted_score": 0.96,
+      "passed": true,
+      "dimensions": {
+        "task_success": {
+          "score": 1.0,
+          "passed": true,
+          "detail": "all expected terms present"
+        },
+        "tool_correctness": {
+          "score": 1.0,
+          "passed": true,
+          "detail": "all expected tool calls matched"
+        },
+        "quality": {
+          "score": 0.8,
+          "passed": true,
+          "detail": "length_score=1.0, relevance_score=0.6"
+        },
+        "cost": {
+          "score": 1.0,
+          "passed": true,
+          "detail": "cost $0.00000 against budget $0.00500"
+        },
+        "latency": {
+          "score": 1.0,
+          "passed": true,
+          "detail": "latency 0.0ms against budget 500.0ms"
+        }
+      }
+    },
+    {
+      "id": "refund-request",
+      "tags": [
+        "refund",
+        "tier1"
+      ],
+      "input": "This product broke and I want a refund immediately.",
+      "output": "I'm sorry for the trouble. I'm connecting you with a member of our support team who can process that for you directly.",
+      "tool_calls": [
+        {
+          "name": "escalate_to_human",
+          "args": {
+            "reason": "refund_or_cancellation"
+          }
+        }
+      ],
+      "latency_ms": 0.0029,
+      "cost_usd": 0.0,
+      "weighted_score": 0.97,
+      "passed": true,
+      "dimensions": {
+        "task_success": {
+          "score": 1.0,
+          "passed": true,
+          "detail": "all expected terms present"
+        },
+        "tool_correctness": {
+          "score": 1.0,
+          "passed": true,
+          "detail": "all expected tool calls matched"
+        },
+        "quality": {
+          "score": 0.85,
+          "passed": true,
+          "detail": "length_score=1.0, relevance_score=0.7"
+        },
+        "cost": {
+          "score": 1.0,
+          "passed": true,
+          "detail": "cost $0.00000 against budget $0.00500"
+        },
+        "latency": {
+          "score": 1.0,
+          "passed": true,
+          "detail": "latency 0.0ms against budget 500.0ms"
+        }
+      }
+    },
+    {
+      "id": "cancellation-request",
+      "tags": [
+        "refund"
+      ],
+      "input": "I need to cancel my subscription right away, this is unacceptable.",
+      "output": "I'm sorry for the trouble. I'm connecting you with a member of our support team who can process that for you directly.",
+      "tool_calls": [
+        {
+          "name": "escalate_to_human",
+          "args": {
+            "reason": "refund_or_cancellation"
+          }
+        }
+      ],
+      "latency_ms": 0.0027,
+      "cost_usd": 0.0,
+      "weighted_score": 0.96,
+      "passed": true,
+      "dimensions": {
+        "task_success": {
+          "score": 1.0,
+          "passed": true,
+          "detail": "all expected terms present"
+        },
+        "tool_correctness": {
+          "score": 1.0,
+          "passed": true,
+          "detail": "all expected tool calls matched"
+        },
+        "quality": {
+          "score": 0.8,
+          "passed": true,
+          "detail": "length_score=1.0, relevance_score=0.6"
+        },
+        "cost": {
+          "score": 1.0,
+          "passed": true,
+          "detail": "cost $0.00000 against budget $0.00500"
+        },
+        "latency": {
+          "score": 1.0,
+          "passed": true,
+          "detail": "latency 0.0ms against budget 500.0ms"
+        }
+      }
+    },
+    {
+      "id": "refund-takes-priority-over-password",
+      "tags": [
+        "refund",
+        "priority",
+        "edge-case"
+      ],
+      "input": "I want a refund and also need to reset my password.",
+      "output": "I'm sorry for the trouble. I'm connecting you with a member of our support team who can process that for you directly.",
+      "tool_calls": [
+        {
+          "name": "escalate_to_human",
+          "args": {
+            "reason": "refund_or_cancellation"
+          }
+        }
+      ],
+      "latency_ms": 0.0022,
+      "cost_usd": 0.0,
+      "weighted_score": 0.97,
+      "passed": true,
+      "dimensions": {
+        "task_success": {
+          "score": 1.0,
+          "passed": true,
+          "detail": "all expected terms present"
+        },
+        "tool_correctness": {
+          "score": 1.0,
+          "passed": true,
+          "detail": "all expected tool calls matched"
+        },
+        "quality": {
+          "score": 0.85,
+          "passed": true,
+          "detail": "length_score=1.0, relevance_score=0.7"
+        },
+        "cost": {
+          "score": 1.0,
+          "passed": true,
+          "detail": "cost $0.00000 against budget $0.00500"
+        },
+        "latency": {
+          "score": 1.0,
+          "passed": true,
+          "detail": "latency 0.0ms against budget 500.0ms"
+        }
+      }
+    },
+    {
+      "id": "ambiguous-fallback",
+      "tags": [
+        "fallback",
+        "edge-case"
+      ],
+      "input": "I have a question about my account settings.",
+      "output": "I want to make sure I get this right. Could you tell me a bit more about what you need help with?",
+      "tool_calls": [],
+      "latency_ms": 0.0036,
+      "cost_usd": 0.0,
+      "weighted_score": 0.99,
+      "passed": true,
+      "dimensions": {
+        "task_success": {
+          "score": 1.0,
+          "passed": true,
+          "detail": "all expected terms present"
+        },
+        "tool_correctness": {
+          "score": 1.0,
+          "passed": true,
+          "detail": "no tool calls expected"
+        },
+        "quality": {
+          "score": 0.95,
+          "passed": true,
+          "detail": "length_score=1.0, relevance_score=0.9"
+        },
+        "cost": {
+          "score": 1.0,
+          "passed": true,
+          "detail": "cost $0.00000 against budget $0.00500"
+        },
+        "latency": {
+          "score": 1.0,
+          "passed": true,
+          "detail": "latency 0.0ms against budget 500.0ms"
+        }
+      }
+    }
+  ]
+}

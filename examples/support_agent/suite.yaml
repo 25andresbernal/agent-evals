@@ -1,0 +1,13 @@
+# Suite file: ties the agent, scorecard, and cases together so the CLI has
+# one file to point at. Run it with:
+#
+#   agent-evals run examples/support_agent/suite.yaml --out examples/support_agent/report.md
+#
+# agent, scorecard, and cases below are resolved relative to this file, so
+# the command above works from any directory.
+
+name: Support Agent Eval Suite
+agent: agent.py:run_agent
+scorecard: scorecard.yaml
+cases: cases.yaml
+judge: fake

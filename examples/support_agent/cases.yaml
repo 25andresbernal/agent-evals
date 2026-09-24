@@ -1,0 +1,106 @@
+# Eval cases for the example support agent (examples/support_agent/agent.py).
+#
+# Each case is a message a customer might send, what the agent's reply
+# should contain, and which tool it should call with which arguments. A PM
+# would normally seed cases like these from real support tickets or from a
+# list of known failure modes, not write them from imagination.
+
+- id: password-reset-with-email
+  input: "I forgot my password, my email is jane@example.com. How do I reset it?"
+  tags: [password, tier1]
+  expected_output_contains:
+    - "reset"
+    - "jane@example.com"
+  expected_tool_calls:
+    - name: send_password_reset_link
+      args:
+        email: jane@example.com
+
+- id: password-reset-no-email
+  input: "I'm locked out of my account and need to reset my password."
+  tags: [password]
+  expected_output_contains:
+    - "reset"
+  expected_tool_calls:
+    - name: send_password_reset_link
+      args:
+        email: null
+
+- id: login-trouble
+  input: "I can't log in to my account, help!"
+  tags: [password]
+  expected_output_contains:
+    - "email on your account"
+  expected_tool_calls:
+    - name: send_password_reset_link
+      args:
+        email: null
+
+- id: order-status-with-id
+  input: "Can you tell me the tracking status of order ABC-12345?"
+  tags: [order, tier1]
+  expected_output_contains:
+    - "ABC-12345"
+    - "transit"
+  expected_tool_calls:
+    - name: lookup_order_status
+      args:
+        order_id: ABC-12345
+
+- id: order-status-no-id
+  input: "What's the status of my order?"
+  tags: [order]
+  expected_output_contains:
+    - "order number"
+  expected_tool_calls:
+    - name: lookup_order_status
+      args:
+        order_id: null
+
+- id: delivery-keyword-order
+  input: "My package delivery seems delayed, what's going on?"
+  tags: [order, edge-case]
+  expected_output_contains:
+    - "order number"
+  expected_tool_calls:
+    - name: lookup_order_status
+      args:
+        order_id: null
+
+- id: refund-request
+  input: "This product broke and I want a refund immediately."
+  tags: [refund, tier1]
+  expected_output_contains:
+    - "support team"
+  expected_tool_calls:
+    - name: escalate_to_human
+      args:
+        reason: refund_or_cancellation
+
+- id: cancellation-request
+  input: "I need to cancel my subscription right away, this is unacceptable."
+  tags: [refund]
+  expected_output_contains:
+    - "support team"
+  expected_tool_calls:
+    - name: escalate_to_human
+      args:
+        reason: refund_or_cancellation
+
+- id: refund-takes-priority-over-password
+  input: "I want a refund and also need to reset my password."
+  tags: [refund, priority, edge-case]
+  notes: "Refund requests should escalate even if the message also mentions a password, because a human needs to handle the refund regardless."
+  expected_output_contains:
+    - "support team"
+  expected_tool_calls:
+    - name: escalate_to_human
+      args:
+        reason: refund_or_cancellation
+
+- id: ambiguous-fallback
+  input: "I have a question about my account settings."
+  tags: [fallback, edge-case]
+  expected_output_contains:
+    - "tell me a bit more"
+  expected_tool_calls: []
